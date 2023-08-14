@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://oddldjveksrg"]
+
+[ext_resource type="Texture2D" uid="uid://bu75t2nmc3sgy" path="res://tiles_8px.png" id="1_rrpfa"]
+[ext_resource type="Script" path="res://FieldView.gd" id="2_tv5nv"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a0kek"]
+texture = ExtResource("1_rrpfa")
+texture_region_size = Vector2i(8, 8)
+use_texture_padding = false
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_hpty1"]
+tile_size = Vector2i(8, 8)
+sources/0 = SubResource("TileSetAtlasSource_a0kek")
+
+[node name="World" type="Node2D"]
+
+[node name="FieldMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_hpty1")
+cell_quadrant_size = 8
+format = 2
+script = ExtResource("2_tv5nv")
+
+[node name="Camera2D" type="Camera2D" parent="FieldMap"]
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.0
+drag_top_margin = 0.0
+drag_right_margin = 0.0
+drag_bottom_margin = 0.0
+editor_draw_screen = false
