@@ -1,13 +1,5 @@
 extends TileMap
 
-"""
-	TODO:
-		* Add zoom
-		* Add saving
-		* Detect pattern
-		* Refact _input(event)
-		* Add music
-"""
 
 const CELL_SIZE = Vector2(8, 8)
 
@@ -75,7 +67,7 @@ func input_cell_state(s):
 
 	mouse_pos.x = clamp(mouse_pos.x, 0, screen_size.x - 1)
 	mouse_pos.y = clamp(mouse_pos.y, 0, screen_size.y - 1)
-#
+
 	var cell_position: Vector2i = (
 		mouse_pos / CELL_SIZE
 	).floor()
