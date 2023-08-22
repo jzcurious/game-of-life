@@ -3,17 +3,19 @@ class_name FieldBase
 var state: Array
 var old_state: Array
 var size: Vector2i
+var numel: int
 var default_state: Variant
 
 
 func _init(size_: Vector2i, default_state_: Variant):
 	size = size_
+	numel = size.x * size.y
 	default_state = default_state_
 	alloc_state()
 	
 
 func alloc_state() -> void:
-	for i in range (size.x * size.y):
+	for i in range(numel):
 		old_state.append(default_state)
 		state.append(default_state)
 
@@ -38,12 +40,12 @@ func set_cell_state(
 		
 
 func push_state() -> void:
-	for i in range(size.x * size.y):
+	for i in range(numel):
 		old_state[i] = state[i]
 
 
 func reset() -> void:
-	for i in range(size.x * size.y):
+	for i in range(numel):
 		old_state[i] = default_state
 		state[i] = default_state
 

@@ -9,7 +9,8 @@ var screen_size = Vector2(
 )
 var field_size: Vector2i = screen_size / CELL_SIZE
 
-var Field = load("res://ConwayField.gd")
+#var Field = load("res://ConwayField.gd")
+var Field = load("res://ConwayFieldRnd.gd")
 var field = null
 var field_map = null
 
@@ -20,6 +21,7 @@ var input_dead = false
 var color_scheme = {
 	Field.CELL_STATE.DEAD: Vector2i(1, 0),
 	Field.CELL_STATE.ALIVE: Vector2i(0, 1),
+	Field.CELL_STATE.SUPERPOSED: Vector2i(2, 1),
 	"static": Vector2i(2, 0),
 }
 
