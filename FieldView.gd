@@ -9,7 +9,7 @@ var screen_size = Vector2(
 )
 var field_size: Vector2i = screen_size / CELL_SIZE
 
-var Field = load("res://FieldModel.gd")
+var Field = load("res://ConwayField.gd")
 var field = null
 var field_map = null
 
@@ -26,7 +26,7 @@ var color_scheme = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():	
-	field = Field.new(field_size)
+	field = Field.new(field_size, Field.CELL_STATE.DEAD)
 	field_map = get_parent().get_node("FieldMap")
 	field_map.tile_set.tile_size = CELL_SIZE
 	setting_up_camera()
@@ -48,14 +48,14 @@ func _process(delta):
 	if !playing:
 		return
 		
-	var old_field_state = field.copy_cell_state()
+	var old_state = field.state.duplicate()
 	
-	field.update()
+	field._eval()
 	
 	for y in range(field.size.y):
 		for x in range(field.size.x):
-			var s_ = field.get_cell_state(x, y)
-			var s = old_field_state[y][x]
+			var s_ = field.get_cell_state(x, y, 1)
+			var s = old_state[field.pos_to_idx(x, y)]
 			if s_ == s and s_ != field.CELL_STATE.DEAD:
 				set_cell(0, Vector2i(x, y), 0, color_scheme["static"])
 			else:
@@ -72,7 +72,7 @@ func input_cell_state(s):
 		mouse_pos / CELL_SIZE
 	).floor()
 	
-	field.set_cell_state(cell_position.x, cell_position.y, s)
+	field.set_cell_state(cell_position.x, cell_position.y, 0, s)
 	set_cell(0, cell_position, 0, color_scheme[s])
 
 
